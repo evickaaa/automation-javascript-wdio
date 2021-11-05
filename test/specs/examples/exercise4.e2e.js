@@ -1,4 +1,4 @@
-import {username, password} from '../fixtures.js'
+import {username, password, userFullName} from '../fixtures.js'
 
 describe('Login Page - excercise 4', () => {
 
@@ -22,13 +22,41 @@ describe('Login Page - excercise 4', () => {
     });
 
     it('should login with valid credentials', () => {
-        $('#email').setValue(username);
-        $('#password').setValue(password);
-        $('.btn-primary').click();
+        const emailField = $('#email')
+        const passwordField = $('#password');
+        const loginButton = $('.btn-primary');
 
-        expect($('h1').getText()).toEqual('Přihlášky');
+        emailField.setValue(username);
+        passwordField.setValue(password);
+        loginButton.click();
+
+        const userNameDropdown = $('.navbar-right').$('[data-toggle="dropdown"]');
+        expect(userNameDropdown.getText()).toEqual(userFullName);
     });
     
+    it('should logout', () => {
+        const emailField = $('#email')
+        const passwordField = $('#password');
+        const loginButton = $('.btn-primary');
+
+        emailField.setValue(username);
+        passwordField.setValue(password);
+        loginButton.click();
+        
+        const userNameDropdown = $('.navbar-right').$('[data-toggle="dropdown"]');
+        expect(userNameDropdown.getText()).toEqual(userFullName);
+
+        userNameDropdown.click();
+        $('#logout-link').click();
+
+        const loginLink = $('#login');
+        expect(loginLink.getText()).toEqual('Přihlásit')
+
+        loginLink.click();
+        expect(emailField).toBeDisplayed();
+        expect(passwordField).toBeDisplayed();
+        expect(loginButton).toBeDisplayed();
+    });
 });
 
 describe('Applications Page - excercise 4', () => {
