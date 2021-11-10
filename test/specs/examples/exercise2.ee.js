@@ -1,5 +1,5 @@
 
-import {username, password} from '../fixtures.js'
+import {username, password} from './fixtures.js'
 
 describe('Login And Applications Page', () => {
 
@@ -36,6 +36,7 @@ describe('Login And Applications Page', () => {
         $('=Přihlášky').click();
 
         // výpis přihlášených kurzů
+        browser.pause(5000);
         const rows = $('.dataTable').$('tbody').$$('tr')
         console.log('There are ' + rows.length + ' rows in the table');
         rows.forEach(row => {
@@ -44,9 +45,10 @@ describe('Login And Applications Page', () => {
 
         // Bonus - filtrování tabulky
         $('input[type="search"]').setValue('Novák');
+        browser.pause(5000);
         const filteredRows = $('.dataTable').$('tbody').$$('tr')
         console.log('There are ' + filteredRows.length + ' filtered rows in the table');
-        rows.forEach(row => {
+        filteredRows.forEach(row => {
             console.log(row.getText());
         });
 

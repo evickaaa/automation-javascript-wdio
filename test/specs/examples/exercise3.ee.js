@@ -1,4 +1,4 @@
-import {username, password} from '../fixtures.js'
+import {username, password} from './fixtures.js'
 
 describe('Login And Applications Page', () => {
 
@@ -10,6 +10,7 @@ describe('Login And Applications Page', () => {
 
         // zjištění stavu políčka email
         const emailField = $('#email');
+
         expect(emailField).toBeDisplayed();
         expect(emailField).toBeEnabled();
         

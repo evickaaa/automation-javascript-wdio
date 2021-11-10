@@ -2,6 +2,7 @@ import { username, password } from './fixtures.js'
 
 describe('Czechitas Login Page / my test', () => {
 
+
   it('should open login page', () => {
 
     browser.reloadSession();
@@ -17,7 +18,7 @@ describe('Czechitas Login Page / my test', () => {
   });
 
   it('should find an element for email and password', () => {
-
+    
     const fieldEmail = $("#email");
     const fieldPassword = $("#password");
     expect(fieldEmail).toExist();
@@ -63,16 +64,72 @@ describe('Czechitas Login Page / my test', () => {
 
   it("should use chained selectors, $$, getText and list all rows of a table without header and footer", () => {
 
-    browser.url('/admin/prihlasky');
+    // browser.url('/admin/prihlasky'); // toto neeeeeee, pres click, nesimuluje to uzivatele, ten klika, my to budeme hledat podle viditelneho textu $('=Prihlášky).click()
+
+    // browser.url('/admin/prihlasky');
+    $('=Přihlášky').click();
+
     browser.pause(5000);
-    const tableBody = $("#DataTables_Table_0_wrapper").$("tbody").$$("tr");
+    const rows = $(".dataTable").$("tbody").$$("tr");
 
-    expect(tableBody).toExist();
-    console.log(`Pocet radku tabulky: ${tableBody.length}`);
+    // expect($(".dataTable").$("tbody").$$("tr")).toExist();
+    expect(rows).toBeElementsArrayOfSize(30);
+    console.log(`Pocet radku tabulky: ${rows.length}`);
 
-    tableBody.forEach(i => { console.log(`obsah radku: ${i.getText()}`) });
+    rows.forEach(i => {
 
+      console.log(`obsah radku: ` + i.getText())
+  });
 
   });
 
+
+  // cviceni 3 assertace
+  // ukol 2.
+
+  // it('should verify that login button contains a correct text', () => {
+
+
+  //   const loginButton = $('.btn-primary');
+  //   expect(loginButton.getText()).toEqual('Přihlášit');
+
+  // });
+
 });
+
+// pokud zadam pred test it.only, vykona mi to jen ten jeden test
+
+
+// describe('Sada 1', () => {
+
+//   before(() => {
+//       console.log('bezi pred vsemi testy v sade 1');
+//   });
+
+//   after(() => {
+//       console.log('bezi po vsech testech v sade 1');
+//   });
+
+//   beforeEach(() => {
+//       console.log('bezi pred kazdym testem v sade 1');
+//   });
+
+//   afterEach(() => {
+//       console.log('bezi po kazdem testu v sade 1');
+//   });
+
+//   it('test 1', () => {
+//       console.log('test 1');
+//   });
+
+//   it('test 2', () => {
+//       console.log('test 2');
+//   });
+
+//   it('test 3', () => {
+//       console.log('test 3');
+//   });
+
+
+
+
